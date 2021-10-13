@@ -24,12 +24,12 @@ const getUserWithEmail = (email) => {
       `
     SELECT * 
     FROM users
-    WHERE email = $1 `,
+    WHERE email = $1; `,
       [email]
     )
     .then((result) => {
-      console.log(result.rows);
-      return result.rows[0]; // return only 1st index from array
+      console.log("getuser with email -----------", result.rows);
+      return result.rows[0] || null; // return only 1st index from array
     })
     .catch((err) => {
       console.log(err.message);
@@ -65,12 +65,12 @@ const getUserWithId = (id) => {
       `
   SELECT * 
   FROM users
-  WHERE id = $1 `,
+  WHERE id = $1; `,
       [id]
     )
     .then((result) => {
       console.log(result.rows);
-      return result.rows[0]; // return only 1st index from array
+      return result.rows[0] || null; // return only 1st index from array
     })
     .catch((err) => {
       console.log(err.message);
@@ -96,7 +96,8 @@ const addUser = (user) => {
     .query(
       `
   INSERT INTO users (name, password, email) 
-  VALUES ($1, $2, $3)`,
+  VALUES ($1, $2, $3)
+  RETURNING *;`,
       [user.name, user.password, user.email]
     )
     .then((result) => {
@@ -128,7 +129,7 @@ const getAllReservations = (guest_id, limit) => {
       SELECT * 
       FROM property_reviews
       WHERE guest_id = $1
-      LIMIT $2 `,
+      LIMIT $2 ;`,
       [guest_id, limit]
     )
     .then((result) => {
@@ -165,7 +166,7 @@ const getAllProperties = (options, limit = 10) => {
       `
     SELECT * 
     FROM properties 
-    LIMIT $1`,
+    LIMIT $1;`,
       [limit]
     )
     .then((result) => {
@@ -195,7 +196,7 @@ const addProperty = (property) => {
     .query(
       `
       INSERT INTO properties (owner_id, title, description,thumbnail_photo_url, cover_photo_url, cost_per_night, parking_spaces, number_of_bathrooms, number_of_bedrooms, country, street, city, province, post_code) 
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14);`,
       [
         property.owner_id,
         property.title,
