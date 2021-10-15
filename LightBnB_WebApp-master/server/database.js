@@ -175,7 +175,7 @@ const getAllProperties = (options, limit = 10) => {
     queryParams.push(`%${options.city}%`);
     queryString += `AND city LIKE $${queryParams.length} `;
   }
-  // 3 - minimum_price_per_night // or just  \ 100 ??
+  // 3 - minimum_price_per_night // multiply by 100 to adjust cents (in database) to dollars (in frontend)
   if (options.minimum_price_per_night) {
     queryParams.push(`%${options.minimum_price_per_night}%`);
     queryString += `AND minimum_price_per_night * 100 >= $${queryParams.length} `;
