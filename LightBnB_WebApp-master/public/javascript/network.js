@@ -76,3 +76,11 @@ function getIndividualReservation(reservationId) {
     url,
   });
 }
+
+const updateReservation = function (data) {
+  return $.ajax({
+    method: "POST",
+    url: `/api/reservations/${data.reservation_id}`,
+    data,
+  });
+};
