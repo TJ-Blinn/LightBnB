@@ -370,11 +370,18 @@ const updateReservation = function (reservationData) {
 };
 
 exports.updateReservation = updateReservation;
-
 //
 //  Deletes an existing reservation
 //
-const deleteReservation = function (reservationId) {};
+const deleteReservation = function (reservationId) {
+  const queryParams = [reservationId];
+  const queryString = `DELETE FROM reservations WHERE id = $1`;
+  return pool
+    .query(queryString, queryParams)
+    .then(() => console.log("Successfully deleted!"))
+    .catch(() => console.error(err));
+};
+exports.deleteReservation = deleteReservation;
 
 // Start up the server npm run local.
 // http://localhost:3000
