@@ -9,14 +9,14 @@ function logOut() {
   return $.ajax({
     method: "POST",
     url: "/users/logout",
-  })
+  });
 }
 
 function logIn(data) {
   return $.ajax({
     method: "POST",
     url: "/users/login",
-    data
+    data,
   });
 }
 
@@ -24,7 +24,7 @@ function signUp(data) {
   return $.ajax({
     method: "POST",
     url: "/users",
-    data
+    data,
   });
 }
 
@@ -38,17 +38,41 @@ function getAllListings(params) {
   });
 }
 
-function getAllReservations() {
+function getFulfilledReservations() {
   let url = "/api/reservations";
   return $.ajax({
     url,
   });
 }
 
-const submitProperty = function(data) {
+function getUpcomingReservations() {
+  let url = "/api/reservations/upcoming";
+  return $.ajax({
+    url,
+  });
+}
+
+//send the data object we've built out in our submit route to the back-end. use the session data of the active user to complete the request.
+const submitProperty = function (data) {
   return $.ajax({
     method: "POST",
     url: "/api/properties",
     data,
+  });
+};
+
+// sends active user session data object from Submit route to back-end to complete request
+const submitReservation = function (data) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/reservations",
+    data,
+  });
+};
+
+function getIndividualReservation(reservationId) {
+  let url = `/api/reservations/${reservationId}`;
+  return $.ajax({
+    url,
   });
 }

@@ -1,5 +1,4 @@
 $(() => {
-
   const $propertyListings = $(`
   <section class="property-listings" id="property-listings">
       <p>Loading...</p>
@@ -17,14 +16,30 @@ $(() => {
   }
   window.propertyListings.clearListings = clearListings;
 
+  // render the fulfilled listings plus the upcoming listings of reservations
   function addProperties(properties, isReservation = false) {
-    clearListings();
+    // if it's a reservation, we don't want to clear the listings a second time in the addProperties function call
+    if (!isReservation) {
+      clearListings();
+    }
+    // check for user login
+    getMyDetails().then();
     for (const propertyId in properties) {
       const property = properties[propertyId];
       const listing = propertyListing.createListing(property, isReservation);
       addListing(listing);
     }
+    // checks to see if reservations have been added
+    if (isReservation) {
+      $(".update-button").on("click", function () {
+        const idData = $(this).attr("id").substring(16);
+        console.log(`update ${idData}`);
+      });
+      $(".delete-button").on("click", function () {
+        const idData = $(this).attr("id").substring(16);
+        console.log(`delete ${idData}`);
+      });
+    }
   }
   window.propertyListings.addProperties = addProperties;
-
 });
