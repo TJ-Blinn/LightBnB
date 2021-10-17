@@ -78,10 +78,28 @@ module.exports = function (router, database) {
       });
   });
 
+  router.post("/reservations/:reservation_id", (req, res) => {
+    let id = req.params.reservation_id;
+
+    database
+      .updateReservation({ reservation_id: id, start_date: req.body.start_date, end_date: req.body.end_date })
+      .then((reservation) => res.send(reservation))
+      .catch((e) => {
+        console.error(e);
+        res.send(e);
+      });
+  });
+
   // delete a reservation
   router.delete("/reservations/:reservationId", (req, res) => {
     const reservationId = req.params.reservationId;
-    database.deleteReservation(reservationId);
+    database
+      .deleteReservation(reservationId)
+      .then((data) => res.send(data))
+      .catch((e) => {
+        console.error(e);
+        res.send(e);
+      });
   });
 
   return router;

@@ -179,7 +179,7 @@ const getAllProperties = (options, limit = 10) => {
   const queryParams = [];
   // 2
   let queryString = `
-  SELECT properties.*, avg(property_reviews.rating) as average_rating
+  SELECT properties.*, avg(property_reviews.rating) as average_rating, count(property_reviews.rating) as review_count
   FROM properties
   JOIN property_reviews ON properties.id = property_id
   WHERE 1 = 1
@@ -340,9 +340,7 @@ exports.getIndividualReservation = getIndividualReservation;
 
 //
 //  Updates an existing reservation with new information
-//
-const updateReservation = function (reservationId, newReservationData) {};
-//
+
 //  Updates an existing reservation with new information
 //
 const updateReservation = function (reservationData) {

@@ -13,8 +13,6 @@ $(() => {
     $signUpForm.detach();
     $newReservationForm.detach();
 
-    let dataTag = "";
-
     switch (item) {
       case "listings":
         $propertyListings.appendTo($main);
@@ -52,7 +50,7 @@ $(() => {
 
       case "updateReservation":
         // since we're getting more information here, we can include this in an extended data tag:
-        dataTag = `
+        const dataTag2 = `
     <span id="datatag-reservation-id">${data.id}</span>
     <span id="datatag-start-date">${data.start_date}</span>
     <span id="datatag-end-date">${data.end_date}</span>
@@ -69,7 +67,7 @@ $(() => {
         const errorMessage = data.error_message ? `<h4>${data.error_message}</h4>` : ``;
         $(reservationDetails).appendTo($main);
         $updateReservationForm.appendTo($main);
-        $(dataTag).appendTo("#datatag");
+        $(dataTag2).appendTo("#datatag");
         $(errorMessage).appendTo("#error-message");
         break;
     }
