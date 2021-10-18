@@ -17,7 +17,7 @@ $(() => {
   window.propertyListings.clearListings = clearListings;
 
   // render the fulfilled listings plus the upcoming listings of reservations
-  const addProperties = function (properties, isReservation = false) {
+  function addProperties(properties, isReservation = false) {
     // if it's a reservation, we don't want to clear the listings a second time in the addProperties function call
     if (!isReservation) {
       clearListings();
@@ -29,7 +29,6 @@ $(() => {
       const listing = propertyListing.createListing(property, isReservation);
       addListing(listing);
     }
-    // checks to see if reservations have been added
     if (isReservation) {
       $(".update-button").on("click", function () {
         const idData = $(this).attr("id").substring(16);
@@ -39,16 +38,25 @@ $(() => {
       });
       $(".delete-button").on("click", function () {
         const idData = $(this).attr("id").substring(16);
-        deleteReservation({ reservation_id: idData })
-          .then((data) => {
-            console.log("Yay! Deleted!", data);
-          })
-          .catch((error) => {
-            console.log("Deleted ERROR print out", error);
-          });
-        console.log(`delete ${idData}`);
+        deleteReservation(idData)
+          .then(() => console.log("Success!"))
+          .catch((err) => console.error(err));
+      });
+      $(".add-review-button").on("click", function () {
+        const idData = $(this).attr("id").substring(11);
+        views_manager.show("newReview", idData);
+      });
+    } else {
+      $(".reserve-button").on("click", function () {
+        const idData = $(this).attr("id").substring(17);
+        views_manager.show("newReservation", idData);
+      });
+      $(".review_details").on("click", function () {
+        const idData = $(this).attr("id").substring(15);
+        views_manager.show("showReviews", idData);
       });
     }
-  };
+  }
+
   window.propertyListings.addProperties = addProperties;
 });
