@@ -19,5 +19,12 @@
     "nodemon": "^1.19.1",
     "pg": "^8.7.1"
   },
-  "eslintConfig": {   "globals": {     "window": true   } }
+  "eslintConfig": {
+    "globals": {
+      "window": true
+    }
+  },
+  "devDependencies": {
+    "sass": "^1.43.2"
+  }
 }
