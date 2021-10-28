@@ -156,7 +156,7 @@ $(() => {
     </form>
   `);
 
-  // Event handlers for Submitting the Reservation
+  // Event handlers for Submitting the Reservation: handle submissions as well as provide a way to cancel out of submitting a reservation
   $newReservationForm.on("submit", function (event) {
     event.preventDefault();
     views_manager.show("none");
