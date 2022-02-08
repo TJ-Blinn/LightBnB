@@ -36,18 +36,6 @@ const getUserWithEmail = (email) => {
     });
 };
 
-// const getUserWithEmail = function (email) {
-//   let user;
-//   for (const userId in users) {
-//     user = users[userId];
-//     if (user.email.toLowerCase() === email.toLowerCase()) {
-//       break;
-//     } else {
-//       user = null;
-//     }
-//   }
-//   return Promise.resolve(user);
-// };
 exports.getUserWithEmail = getUserWithEmail;
 
 /**
@@ -55,9 +43,6 @@ exports.getUserWithEmail = getUserWithEmail;
  * @param {string} id The id of the user.
  * @return {Promise<{}>} A promise to the user.
  */
-// const getUserWithId = function (id) {
-//   return Promise.resolve(users[id]);
-// };
 
 const getUserWithId = (id) => {
   return pool
@@ -84,12 +69,6 @@ exports.getUserWithId = getUserWithId;
  * @param {{name: string, password: string, email: string}} user
  * @return {Promise<{}>} A promise to the user.
  */
-// const addUser = function (user) {
-//   const userId = Object.keys(users).length + 1;
-//   user.id = userId;
-//   users[userId] = user;
-//   return Promise.resolve(user);
-// };
 
 const addUser = (user) => {
   return pool
@@ -118,9 +97,6 @@ exports.addUser = addUser;
  * @param {string} guest_id The id of the user.
  * @return {Promise<[{}]>} A promise to the reservations.
  */
-// const getFulfilledReservations = function (guest_id, limit = 10) {
-//   return getAllProperties(null, 2);
-// };
 
 const getFulfilledReservations = function (guest_id, limit = 10) {
   const queryString = `
@@ -137,27 +113,6 @@ const getFulfilledReservations = function (guest_id, limit = 10) {
 };
 exports.getFulfilledReservations = getFulfilledReservations;
 
-// const getAllReservations = (guest_id, limit = 10) => {
-//   return pool
-//     .query(
-//       `
-//       SELECT *
-//       FROM reservations
-//       WHERE guest_id = $1
-//       LIMIT $2;`,
-//       [guest_id, limit]
-//     )
-//     .then((result) => {
-//       console.log(result.rows);
-//       return result.rows; // return only 1st index from array
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//     });
-// };
-
-// exports.getAllReservations = getAllReservations;
-
 /// Properties
 
 /**
@@ -166,13 +121,6 @@ exports.getFulfilledReservations = getFulfilledReservations;
  * @param {*} limit The number of results to return.
  * @return {Promise<[{}]>}  A promise to the properties.
  */
-// const getAllProperties = function(options, limit = 10) {
-//   const limitedProperties = {};
-//   for (let i = 1; i <= limit; i++) {
-//     limitedProperties[i] = properties[i];
-//   }
-//   return Promise.resolve(limitedProperties);
-// }
 
 const getAllProperties = (options, limit = 10) => {
   // 1 - queryParams // allows us to inject dynamic values into SQL via the "pg" library
@@ -226,6 +174,7 @@ const getAllProperties = (options, limit = 10) => {
   ORDER BY cost_per_night
   LIMIT $${queryParams.length}
   `;
+
   // 5
   console.log(queryString, queryParams);
 
@@ -233,22 +182,6 @@ const getAllProperties = (options, limit = 10) => {
   return pool.query(queryString, queryParams).then((res) => res.rows);
 };
 
-//   return pool
-//     .query(
-//       `
-//     SELECT *
-//     FROM properties
-//     LIMIT $1;`,
-//       [limit]
-//     )
-//     .then((result) => {
-//       console.log(result.rows);
-//       return result.rows;
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//     });
-// };
 exports.getAllProperties = getAllProperties;
 
 /**
@@ -256,12 +189,6 @@ exports.getAllProperties = getAllProperties;
  * @param {{}} property An object containing all of the property details.
  * @return {Promise<{}>} A promise to the property.
  */
-// const addProperty = function (property) {
-//   const propertyId = Object.keys(properties).length + 1;
-//   property.id = propertyId;
-//   properties[propertyId] = property;
-//   return Promise.resolve(property);
-// };
 
 const addProperty = (property) => {
   return pool
@@ -287,7 +214,6 @@ const addProperty = (property) => {
       ]
     )
     .then((result) => {
-      //console.log("-------------------", result);
       console.log(result.rows);
       return result.rows;
     })
@@ -300,9 +226,8 @@ exports.addProperty = addProperty;
 
 // This takes reservation data from the API
 const addReservation = function (reservation) {
-  /*
-   * Adds a reservation from a specific user to the database
-   */
+  //  * Adds a reservation from a specific user to the database
+
   return pool
     .query(
       `
@@ -315,10 +240,8 @@ const addReservation = function (reservation) {
 };
 
 exports.addReservation = addReservation;
-
-//
 //  Gets upcoming reservations
-//
+
 const getUpcomingReservations = function (guest_id, limit = 10) {
   const queryString = `
   SELECT properties.*, reservations.*, avg(rating) as average_rating
@@ -342,12 +265,8 @@ const getIndividualReservation = function (reservationId) {
 };
 
 exports.getIndividualReservation = getIndividualReservation;
-
-//
 //  Updates an existing reservation with new information
 
-//  Updates an existing reservation with new information
-//
 const updateReservation = function (reservationData) {
   // base string
   let queryString = `UPDATE reservations SET `;
@@ -373,9 +292,8 @@ const updateReservation = function (reservationData) {
 };
 
 exports.updateReservation = updateReservation;
-//
 //  Deletes an existing reservation
-//
+
 const deleteReservation = function (reservationId) {
   const queryParams = [reservationId];
   const queryString = `DELETE FROM reservations WHERE id = $1`;
@@ -385,10 +303,8 @@ const deleteReservation = function (reservationId) {
     .catch(() => console.error(err));
 };
 exports.deleteReservation = deleteReservation;
+//  get reviews by property
 
-/*
- *  get reviews by property
- */
 const getReviewsByProperty = function (propertyId) {
   const queryString = `
     SELECT property_reviews.id, property_reviews.rating AS review_rating, property_reviews.message AS review_text, 
@@ -418,4 +334,4 @@ const addReview = function (review) {
 exports.addReview = addReview;
 
 // Start up the server npm run local.
-// http://localhost:3000
+// http://localhost:3001
