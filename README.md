@@ -4,6 +4,30 @@ A database application project developed as a part of Lighthouse Labs Web develo
 
 ---
 
+## Getting Started
+
+1. Fork this repository, then clone your fork of this repository.
+2. Install dependencies using the `npm install` command.
+3. Start local postgresql server
+4. Run database migrations and seeds:
+   \i migrations/01_schema.sql
+   \i seeds/01_seeds.sql
+   \i seeds/02_seeds.sql
+
+5. Start the web server using the `npm start` command. The app will be served at <http://localhost:3001/>.
+6. Go to <http://localhost:3001/> in your browser.
+
+## Dependencies
+
+- bcrypt
+- body-parser
+- cookie-session
+- express
+- nodemon
+- pg
+
+---
+
 ## Learning Outcomes
 
 In completing this project, learners will be able to:
