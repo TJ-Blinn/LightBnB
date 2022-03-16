@@ -1,4 +1,4 @@
-# LightBnB
+# LightBnB 🏨
 
 A database application project developed as a part of Lighthouse Labs Web development course. The front-end is forked from [LightBnB_WebApp](https://github.com/lighthouse-labs/LightBnB_WebApp) Install the LightBnB_WebApp `npm install`, run it `npm run local`, and view it at `localhost:3000`. The purpose of this project is to design a database and use server-side JavaScript to display the information from queries to web pages. The following concepts will be applied: complex SQL queries, database and ERD (entity relationship diagram) design to integrate the database with a Node backend.
 
@@ -10,12 +10,12 @@ A database application project developed as a part of Lighthouse Labs Web develo
 2. Install dependencies using the `npm install` command.
 3. Start local postgresql server
 4. Run database migrations and seeds:
-   \i migrations/01_schema.sql
-   \i seeds/01_seeds.sql
-   \i seeds/02_seeds.sql
+
+- \i migrations/01_schema.sql
+- \i seeds/01_seeds.sql
+- \i seeds/02_seeds.sql
 
 5. Start the web server using the `npm start` command. The app will be served at <http://localhost:3001/>.
-6. Go to <http://localhost:3001/> in your browser.
 
 ## Dependencies
 
